@@ -1,5 +1,6 @@
 package com.test.security.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -12,6 +13,9 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 @Configuration
 public class OverrideUserDetailsEndPointAuthorization extends WebSecurityConfigurerAdapter {
 
+    @Autowired
+    private CustomAuthenticationProvider authenticationProvider;
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         var userDetailsService = new InMemoryUserDetailsManager();
@@ -20,6 +24,10 @@ public class OverrideUserDetailsEndPointAuthorization extends WebSecurityConfigu
                 .authorities("read")
                 .build();
         userDetailsService.createUser(user);
+        // Overriding the AuthenticationProvider implementation
+        auth.authenticationProvider(authenticationProvider);
+
+        // Overriding the UserDetailsService and PasswordEncoder implementations
         auth.userDetailsService(userDetailsService)
                 .passwordEncoder(NoOpPasswordEncoder.getInstance());
     }
