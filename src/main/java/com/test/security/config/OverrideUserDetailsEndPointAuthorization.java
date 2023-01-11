@@ -28,8 +28,8 @@ public class OverrideUserDetailsEndPointAuthorization extends WebSecurityConfigu
         auth.authenticationProvider(authenticationProvider);
 
         // Overriding the UserDetailsService and PasswordEncoder implementations
-        auth.userDetailsService(userDetailsService)
-                .passwordEncoder(NoOpPasswordEncoder.getInstance());
+        /*auth.userDetailsService(userDetailsService)
+                .passwordEncoder(NoOpPasswordEncoder.getInstance());*/
     }
 
     @Override

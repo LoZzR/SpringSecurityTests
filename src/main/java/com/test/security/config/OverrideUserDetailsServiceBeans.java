@@ -9,7 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 // Overriding the UserDetailsService and PasswordEncoder components
-@Configuration
+//@Configuration
 public class OverrideUserDetailsServiceBeans {
 
     @Bean
