@@ -1,20 +1,22 @@
 package com.test.security.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+/*import javax.persistence.Entity;
+import javax.persistence.Id;*/
 
-@Entity
+//@Entity
 @Getter
-@Setter
+@RequiredArgsConstructor
 public class User {
 
-    @Id
+    //@Id
     private int id;
-    private String username;
-    private String password;
-    private String authority;
+    private final String username;
+    private final String password;
+    private final String authority;
     // Omitted getters and setters
 }
