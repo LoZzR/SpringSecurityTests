@@ -18,13 +18,14 @@ public class OverrideUserDetailsEndPointAuthorization extends WebSecurityConfigu
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        var userDetailsService = new InMemoryUserDetailsManager();
+        /*var userDetailsService = new InMemoryUserDetailsManager();
         var user = User.withUsername("john")
                 .password("12345")
                 .authorities("read")
                 .build();
         userDetailsService.createUser(user);
         // Overriding the AuthenticationProvider implementation
+        auth.authenticationProvider(authenticationProvider);*/
         auth.authenticationProvider(authenticationProvider);
 
         // Overriding the UserDetailsService and PasswordEncoder implementations
@@ -32,11 +33,11 @@ public class OverrideUserDetailsEndPointAuthorization extends WebSecurityConfigu
                 .passwordEncoder(NoOpPasswordEncoder.getInstance());*/
     }
 
-    @Override
+    /*@Override
     protected void configure(HttpSecurity http) throws Exception {
         http.httpBasic();
         http.authorizeRequests()
                 .anyRequest().authenticated();
                             //.permitAll();
-    }
+    }*/
 }
