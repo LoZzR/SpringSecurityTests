@@ -1,5 +1,8 @@
 package com.test.security.config;
 
+import com.test.security.entity.helper.CustomAuthenticationFailureHandler;
+import com.test.security.entity.helper.CustomAuthenticationSuccessHandler;
+import com.test.security.entity.helper.CustomEntryPoint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -15,6 +18,10 @@ public class OverrideUserDetailsEndPointAuthorization extends WebSecurityConfigu
 
     @Autowired
     private CustomAuthenticationProvider authenticationProvider;
+    @Autowired
+    private CustomAuthenticationSuccessHandler authenticationSuccessHandler;
+    @Autowired
+    private CustomAuthenticationFailureHandler authenticationFailureHandler;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -33,11 +40,19 @@ public class OverrideUserDetailsEndPointAuthorization extends WebSecurityConfigu
                 .passwordEncoder(NoOpPasswordEncoder.getInstance());*/
     }
 
-    /*@Override
+    @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.httpBasic();
+
+        http.formLogin()
+                .successHandler(authenticationSuccessHandler)
+                .failureHandler(authenticationFailureHandler)
+         .and()
+                .httpBasic(c -> {
+                    c.realmName("OTHER");
+                    c.authenticationEntryPoint(new CustomEntryPoint());
+                });
         http.authorizeRequests()
-                .anyRequest().authenticated();
-                            //.permitAll();
-    }*/
+                .anyRequest()
+                .authenticated();
+    }
 }
