@@ -51,8 +51,10 @@ public class OverrideUserDetailsEndPointAuthorization extends WebSecurityConfigu
                     c.realmName("OTHER");
                     c.authenticationEntryPoint(new CustomEntryPoint());
                 });
-        http.authorizeRequests()
-                .anyRequest()
-                .authenticated();
+        http.authorizeRequests().antMatchers("/").permitAll().and()
+                .authorizeRequests().antMatchers("/console/**").permitAll();
+
+        http.csrf().disable();
+        http.headers().frameOptions().disable();
     }
 }
