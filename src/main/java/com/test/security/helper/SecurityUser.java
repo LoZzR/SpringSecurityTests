@@ -1,12 +1,16 @@
-package com.test.security.entity.helper;
+package com.test.security.helper;
 
 import com.test.security.entity.User;
+import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
+@Getter
 public class SecurityUser implements UserDetails {
 
     private final User user;
@@ -26,9 +30,11 @@ public class SecurityUser implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(() -> user.getAuthority());
+        return user.getAuthorities().stream()
+                .map(a -> new SimpleGrantedAuthority(
+                        a.getName()))
+                .collect(Collectors.toList());
     }
-
     @Override
     public boolean isAccountNonExpired() {
         return true;

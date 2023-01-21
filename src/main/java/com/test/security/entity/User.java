@@ -1,22 +1,24 @@
 package com.test.security.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import com.test.security.constante.EncryptionAlgorithm;
+import lombok.*;
 
-/*import javax.persistence.Entity;
-import javax.persistence.Id;*/
+import javax.persistence.*;
+import java.util.List;
 
-//@Entity
+@Entity
 @Getter
-@RequiredArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor
 public class User {
 
-    //@Id
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private final String username;
-    private final String password;
-    private final String authority;
-    // Omitted getters and setters
+    private String username;
+    private String password;
+    @Enumerated(EnumType.STRING)
+    private EncryptionAlgorithm algorithm;
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    private List<Authority> authorities;
 }

@@ -1,33 +1,29 @@
 package com.test.security.config;
 
 import com.test.security.entity.User;
-import com.test.security.entity.helper.PlainTextPasswordEncoder;
-import com.test.security.entity.helper.SecurityUser;
+import com.test.security.helper.PlainTextPasswordEncoder;
+import com.test.security.helper.SecurityUser;
 import com.test.security.service.CustomInMemoryUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.scrypt.SCryptPasswordEncoder;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-@Configuration
+//@Configuration
 public class CustomUserDetailsServiceConfig {
 
-    @Bean
-    public UserDetailsService userDetailsService() {
+    //@Bean
+    /*public UserDetailsService userDetailsService() {
         UserDetails u = new SecurityUser(new User("zack", "test123", "read"));
         List<UserDetails> users = List.of(u);
         return new CustomInMemoryUserDetailsService(users);
-    }
-    @Bean
+    }*/
+    //@Bean
     public PasswordEncoder passwordEncoder() {
         //return NoOpPasswordEncoder.getInstance();
         return new PlainTextPasswordEncoder();

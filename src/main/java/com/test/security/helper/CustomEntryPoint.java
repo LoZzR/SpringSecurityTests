@@ -1,4 +1,4 @@
-package com.test.security.entity.helper;
+package com.test.security.helper;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.AuthenticationException;
